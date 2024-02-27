@@ -9,11 +9,10 @@ class Play extends Phaser.Scene {
         this.wall = this.add.sprite(-centerX, h-this.floor.height, 'plantwall').setOrigin(0,1)
 
         // add players
-        this.smallPlayer = this.physics.add.sprite(centerX, h-this.floor.height, 'smallPlayer').setOrigin(0.5, 1).setGravity(0, 100)
-
+        this.knight = new Player(this, centerX, h/2, 'knight', 0, {})
 
         // add colliders for floor
-        this.physics.add.collider(this.smallPlayer, this.floor)
+        this.physics.add.collider(this.knight, this.floor)
     }
 
     update(time, delta) {

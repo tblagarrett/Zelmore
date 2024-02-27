@@ -22,7 +22,7 @@ class Load extends Phaser.Scene {
         // load graphics assets
         this.load.image('floor', 'img/floor.png')
         this.load.image('plantwall', 'img/plantwall.png')
-        this.load.image('smallPlayer', 'img/smallPlayer.png') // TODO: THIS WILL BE A SPRITESHEET
+        this.load.image('knight', 'img/knight.png') // TODO: THIS WILL BE A SPRITESHEET
 
         // load sound assets
 
