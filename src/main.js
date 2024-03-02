@@ -22,6 +22,10 @@ let config = {
 let game = new Phaser.Game(config)
 // Put any config that the other scenes may need
 settings = {
+    moveSpeed: 300,
+    hurtStunTime: .25 * 1000,     // in milliseconds
+    blockLength: .25 * 1000,       // in milliseconds
+    blockCooldown: 1 * 1000       // in milliseconds
 }
 
 // define globals
