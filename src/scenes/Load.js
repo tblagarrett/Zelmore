@@ -24,6 +24,16 @@ class Load extends Phaser.Scene {
         this.load.image('plantwall', 'img/plantwall.png')
         this.load.image('knight', 'img/knight.png') // TODO: THIS WILL BE A SPRITESHEET
 
+        // menu bg
+        this.load.image('menuBG1', 'img/mainmenu/MainMenuBackground-1.png')
+        this.load.image('menuBG2', 'img/mainmenu/MainMenuBackground-2.png')
+        this.load.image('menuBG3', 'img/mainmenu/MainMenuBackground-3.png')
+        this.load.image('menuBG4', 'img/mainmenu/MainMenuBackground-4.png')
+        this.load.image('menuBG5', 'img/mainmenu/MainMenuBackground-5.png')
+        this.load.image('menuBG6', 'img/mainmenu/MainMenuBackground-6.png')
+        this.load.image('menuBG7', 'img/mainmenu/MainMenuBackground-7.png')
+        this.load.image('menuBG8', 'img/mainmenu/MainMenuBackground-8.png')
+
         // load sound assets
 
         // load spritesheets
