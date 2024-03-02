@@ -25,7 +25,7 @@ class Play extends Phaser.Scene {
             character: 'knight',
             direction: 'right'
         })
-        this.p1Container = this.add.container(this.knight.x, this.knight.y)
+        this.knight.body.setSize(65, 105).setOffset(15, 0)
 
         // add colliders for floor
         this.physics.add.collider(this.knight, this.floor)

@@ -116,16 +116,33 @@ class MoveState extends State {
 
 class AttackState extends State {
     enter(scene, hero) {
+        /*
+        This works in 3 parts, as a sequence
+        attack wind up goes
+        attack comes out, plays its animation and activates the hitbox
+        endlag plays and then sends player to idle state
+        */
+
         hero.body.setVelocity(0)
-        hero.anims.play(`swing-${hero.direction}`)
+        hero.anims.play(`attackWindUp-${hero.character}-${hero.direction}`)
         hero.once('animationcomplete', () => {
-            this.stateMachine.transition('idle')
+            hero.anims.play(`attack-${hero.character}-${hero.direction}`)
+            // TODO: Turn on the hitbox for the weapon
+            hero.once('animationcomplete', () => {
+                hero.anims.play(`attackLag-${hero.character}-${hero.direction}`)
+                // TODO: Turn off the hitbox for the weapon
+                // HITBOX WILL ALSO NEED TO TURN OFF THE FIRST TIME A HIT IS REGISTERED
+                hero.once('animationcomplete', () => {
+                    this.stateMachine.transition('idle')
+                })
+            })
         })
     }
 }
 
 class BlockState extends State {
     enter(scene, hero) {
+        hero.anims.play(`block-${hero.character}-${hero.direction}`)
         hero.isBlocking = true
 
         hero.body.setVelocity(0)
@@ -135,12 +152,17 @@ class BlockState extends State {
         scene.time.delayedCall(settings.blockLength, () => {
             hero.clearTint()
             hero.isBlocking = false
-            this.stateMachine.transition('idle')
+            hero.anims.play(`blockLag-${hero.character}-${hero.direction}`)
 
             // set the block on cooldown, and let it be used once that cooldown is over
             hero.blockOnCooldown = true
             scene.time.delayedCall(settings.blockCooldown, () => {
                 hero.blockOnCooldown = false
+            })
+
+            // Add some endlag at the end, and then go back to idle
+            scene.time.delayedCall(settings.blockEndlag, () => {
+                this.stateMachine.transition('idle')
             })
         })
     }
@@ -150,9 +172,8 @@ class HurtState extends State {
     enter(scene, hero) {
         hero.isBlocking = true
         hero.body.setVelocity(0)
-        hero.anims.play(`walk-${hero.character}-${hero.direction}`)
-        hero.anims.stop()
-        hero.setTint(0xFF0000)     // turn red
+        hero.anims.play(`hurt-${hero.character}-${hero.direction}`)
+        // hero.setTint(0xFF0000)     // turn red
 
         // create knockback by sending body in direction opposite facing direction
         switch(hero.direction) {

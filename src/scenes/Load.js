@@ -37,15 +37,20 @@ class Load extends Phaser.Scene {
 
         // load spritesheets
         this.load.spritesheet('knight', 'img/KnightSprite.png', {
-            frameWidth: 105,
-            frameHeight: 140
+            frameWidth: 120,
+            frameHeight: 105
         }) 
     }
 
     create() {
         // animation configuration
 
-        // knight animations
+        
+        /*
+        KNIGHT ANIMATIONS
+        */
+
+        // IDLE
         this.anims.create({
             key: 'idle-knight-right',
             frameRate: 4,
@@ -53,13 +58,69 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('knight', { start: 0, end: 1 }),
         })
 
+        // WALK
         this.anims.create({
             key: 'walk-knight-right',
-            frameRate: 8,
+            frameRate: 16,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('knight', { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers('knight', {
+                frames: [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+            })
         })
 
+        // BLOCK
+        this.anims.create({
+            key: 'block-knight-right',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('knight', {
+                frames: [13]
+            }),
+            duration: settings.blockLength
+        })
+        this.anims.create({
+            key: 'blockLag-knight-right',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('knight', {
+                frames: [12]
+            }),
+            duration: settings.blockEndlag
+        })
+
+        // HURT
+        this.anims.create({
+            key: 'hurt-knight-right',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('knight', {
+                frames: [14]
+            }),
+            duration: settings.hurtStunTime
+        })
+
+       // ATTACK
+       this.anims.create({
+            key: 'attackWindUp-knight-right',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('knight', {
+                frames: [15, 16]
+            }),
+            duration: settings.attackWindUp
+       })
+       this.anims.create({
+            key: 'attack-knight-right',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('knight', {
+                frames: [17]
+            }),
+            duration: settings.attackLength
+       })
+       this.anims.create({
+            key: 'attackLag-knight-right',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('knight', {
+                frames: [16, 15]
+            }),
+            duration: settings.attackEndlag
+       })
 
         // go to Title scene
         this.scene.start('titleScene');
