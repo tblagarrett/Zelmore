@@ -37,8 +37,7 @@ class Player extends Phaser.GameObjects.Sprite {
 class IdleState extends State {
     enter(scene, hero) {
         hero.body.setVelocity(0)
-        hero.anims.play(`walk-${hero.character}-${hero.direction}`)
-        hero.anims.stop()
+        hero.anims.play(`idle-${hero.character}-${hero.direction}`)
     }
 
     execute(scene, hero) {

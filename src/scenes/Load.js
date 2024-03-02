@@ -22,7 +22,6 @@ class Load extends Phaser.Scene {
         // load graphics assets
         this.load.image('floor', 'img/floor.png')
         this.load.image('plantwall', 'img/plantwall.png')
-        this.load.image('knight', 'img/knight.png') // TODO: THIS WILL BE A SPRITESHEET
 
         // menu bg
         this.load.image('menuBG1', 'img/mainmenu/MainMenuBackground-1.png')
@@ -37,10 +36,30 @@ class Load extends Phaser.Scene {
         // load sound assets
 
         // load spritesheets
+        this.load.spritesheet('knight', 'img/KnightSprite.png', {
+            frameWidth: 105,
+            frameHeight: 140
+        }) 
     }
 
     create() {
         // animation configuration
+
+        // knight animations
+        this.anims.create({
+            key: 'idle-knight-right',
+            frameRate: 4,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('knight', { start: 0, end: 1 }),
+        })
+
+        this.anims.create({
+            key: 'walk-knight-right',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('knight', { start: 0, end: 3 }),
+        })
+
 
         // go to Title scene
         this.scene.start('titleScene');
