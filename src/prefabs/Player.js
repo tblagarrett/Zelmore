@@ -138,6 +138,7 @@ class BlockState extends State {
             hero.isBlocking = false
             this.stateMachine.transition('idle')
 
+            // set the block on cooldown, and let it be used once that cooldown is over
             hero.blockOnCooldown = true
             scene.time.delayedCall(settings.blockCooldown, () => {
                 hero.blockOnCooldown = false

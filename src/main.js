@@ -11,9 +11,9 @@ let config = {
     height: 93 * 5,
     physics: {
         default: 'arcade',
-        // arcade: {
-        //     debug: true
-        // }
+        arcade: {
+            debug: true
+        }
     },
     pixelArt: true,
     scene: [ Load, Title, Play, Credits ]
