@@ -34,6 +34,7 @@ class Load extends Phaser.Scene {
         this.load.image('menuBG8', 'img/mainmenu/MainMenuBackground-8.png')
         this.load.image('water', 'img/mainmenu/GoldBackground-1.png')
         this.load.image('reflection', 'img/mainmenu/MainMenuBackground-9.png')
+        this.load.image('titleText', 'img/mainmenu/TitleScreenTitle-1.png')
 
         // load sound assets
 
