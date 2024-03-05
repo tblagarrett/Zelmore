@@ -9,9 +9,15 @@ class Player extends Phaser.GameObjects.Sprite {
         this.setOrigin(0.5, 1)
         this.body.setGravity(0, 100)
 
+        // https://www.youtube.com/watch?v=SCO2BbbO17c i left off at timestamp 
+        // adding player attack hitbox
+        this.attackHitbox = scene.add.rectangle(0,0,20, 5, 0xFFFFFF, 0)
+        scene.physics.add.existing(this.attackHitbox)
         // Set up properties
         this.isBlocking = false
         this.blockOnCooldown = false
+
+
 
         this.keybinds = keybinds
         this.player = config.player         // 1 or 2
