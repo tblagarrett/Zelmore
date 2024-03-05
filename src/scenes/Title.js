@@ -4,6 +4,7 @@ class Title extends Phaser.Scene {
     }
 
     create() {
+        // The background for the title screen! They all move seperately
         this.sky = this.add.tileSprite(w/2, 0, 765, 125, 'menuBG2').setOrigin(0.5, 0)
         this.clouds = this.add.tileSprite(w/2, 0, 765, 125, 'menuBG1').setOrigin(0.5, 0)
         this.backMountains = this.add.tileSprite(w/2, h-305, 765, 125, 'menuBG3').setOrigin(0.5, 1)
@@ -15,12 +16,14 @@ class Title extends Phaser.Scene {
         this.water = this.add.tileSprite(w/2, h, 765, 125, 'water').setOrigin(0.5, 1)
         this.water2 = this.add.tileSprite(w/2, h-this.water.height/2, 765, 125, 'water').setOrigin(0.5, 1)
 
+        // The reflection of the background on the gold bar
         this.reflection = this.add.tileSprite(w/2, h-65, 765, 125, 'reflection').setOrigin(0.5, 1).setAlpha(.2).setTint(0xbe9b3e)
         this.reflection.flipY = true
 
-
+        // The title image
         this.title = this.add.image(w/2, h*3/4, 'titleText').setOrigin(0.5, 1).setScale(1.3)
         
+        // Title Screen text
         this.add.text (w/2, h/2 + 200, 'Press space to play').setScale(2).setOrigin(0.5, 0.5)
         this.add.text (w/2, h/2 + 250, 'Press shift for credits').setScale(2).setOrigin(0.5, 0.5)
     
