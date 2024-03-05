@@ -22,6 +22,8 @@ class Load extends Phaser.Scene {
         // load graphics assets
         this.load.image('floor', 'img/floor.png')
         this.load.image('plantwall', 'img/plantwall.png')
+        this.load.image('gameSky', 'img/GameSky.png')
+        this.load.image('tree', 'img/tree.png')
 
         // menu bg
         this.load.image('menuBG1', 'img/mainmenu/MainMenuBackground-1.png')

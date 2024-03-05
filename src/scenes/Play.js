@@ -10,6 +10,9 @@ class Play extends Phaser.Scene {
         }
 
         // add background objects
+        this.sky = this.add.sprite(w/2, h-130, 'gameSky').setOrigin(.5, 1)
+        this.tree1 = this.add.sprite(w/10, h-130, 'tree').setOrigin(0.5, 1)
+        this.tree2 = this.add.sprite(w + w/4, h-130, 'tree').setOrigin(0.5, 1)
         this.floor = this.physics.add.sprite(-centerX, h, 'floor').setOrigin(0,1).setImmovable(true)
         this.wall = this.add.sprite(-centerX, h-this.floor.height, 'plantwall').setOrigin(0,1)
 
