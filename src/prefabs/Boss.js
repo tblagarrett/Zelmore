@@ -27,8 +27,6 @@ class Boss extends Phaser.GameObjects.Sprite {
         this.player = config.player         // 1 or 2
         this.character = config.character   // 'knight' or 'boss'
         this.direction = config.direction   // 'right' or 'left'
-
-        console.log(this.colliding)
         
         this.PlayerFSM = new StateMachine('idle', {
             idle: new BossIdleState(),

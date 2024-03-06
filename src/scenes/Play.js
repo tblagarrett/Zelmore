@@ -60,7 +60,6 @@ class Play extends Phaser.Scene {
 
 function takeDamage() {
     this.colliding = true
-    console.log(this.constructor.name)
 }
 
 function checkIfValid(recipient, hitbox) {
