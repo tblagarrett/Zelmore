@@ -12,6 +12,7 @@ class Boss extends Phaser.GameObjects.Sprite {
         // https://www.youtube.com/watch?v=SCO2BbbO17c i left off at timestamp 
         // adding player attack hitbox
         this.attackHitbox = scene.add.rectangle(0,0,90, 39, 0xFFFFFF, 0).setOrigin(0,0)
+        this.attackHitbox.setPosition(w*2, h*2)
         
         scene.physics.add.existing(this.attackHitbox)
         // Set up properties
@@ -21,12 +22,13 @@ class Boss extends Phaser.GameObjects.Sprite {
 
 
 
-        
-        this.colliding = true
+        this.colliding = false
         this.keybinds = keybinds
         this.player = config.player         // 1 or 2
         this.character = config.character   // 'knight' or 'boss'
         this.direction = config.direction   // 'right' or 'left'
+
+        console.log(this.colliding)
         
         this.PlayerFSM = new StateMachine('idle', {
             idle: new BossIdleState(),
@@ -39,12 +41,6 @@ class Boss extends Phaser.GameObjects.Sprite {
 
     update() {
         this.PlayerFSM.step()
-    }
-
-    takeDammage(){
-        console.log("hehehahahah")
-        this.colliding = true
-        //console.log(this.colliding)
     }
 }
 
@@ -69,9 +65,6 @@ class BossIdleState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-
-        
-        console.log(hero.colliding)
         if(Phaser.Input.Keyboard.JustDown(HKey) || hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
@@ -112,7 +105,7 @@ class BossMoveState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey) ||hero.colliding == true) {
+        if(Phaser.Input.Keyboard.JustDown(HKey) || hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
         }
@@ -157,6 +150,7 @@ class BossAttackState extends State {
                 hero.attackHitbox.y +=  500
                 
                 this.stateMachine.transition('hurt')
+                return
             }
 
             hero.once('animationcomplete', () => {
@@ -202,6 +196,7 @@ class BossBlockState extends State {
 
 class BossHurtState extends State {
     enter(scene, hero) {
+        hero.colliding = false
         hero.isBlocking = true
         hero.body.setVelocity(0)
         hero.anims.play(`hurt-${hero.character}-${hero.direction}`)

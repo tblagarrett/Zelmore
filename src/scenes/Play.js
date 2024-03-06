@@ -48,12 +48,22 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.boss, this.floor)
 
         //add hit box overlaps
-        this.physics.add.overlap(this.knight.attackHitbox, this.boss, this.boss.takeDammage, undefined, this)
-        this.physics.add.overlap(this.knight, this.boss.attackHitbox, this.knight.takeDammage, undefined, this)
+        this.physics.add.overlap(this.boss, this.knight.attackHitbox, takeDamage, checkIfValid, this.boss)
+        this.physics.add.overlap(this.knight, this.boss.attackHitbox, takeDamage, checkIfValid, this.knight)
     }
 
     update(time, delta) {
         this.knight.update()
         this.boss.update()
     }
+}
+
+function takeDamage() {
+    this.colliding = true
+    console.log(this.constructor.name)
+}
+
+function checkIfValid(recipient, hitbox) {
+    hitbox.x += 500
+    return recipient.PlayerFSM.state != 'hurt' && recipient.PlayerFSM.state != 'block'
 }

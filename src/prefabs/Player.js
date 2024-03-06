@@ -12,9 +12,11 @@ class Player extends Phaser.GameObjects.Sprite {
         // https://www.youtube.com/watch?v=SCO2BbbO17c i left off at timestamp 
         // adding player attack hitbox
         this.attackHitbox = scene.add.rectangle(0,0,60, 12, 0xFFFFFF, 0).setOrigin(0,0)
+        this.attackHitbox.setPosition(w*3, h*3)
         scene.physics.add.existing(this.attackHitbox)
         
         // Set up properties
+        this.colliding = false
         this.isBlocking = false
         this.blockOnCooldown = false
         //scene.physics.add.overlap(this.sword)
@@ -36,10 +38,6 @@ class Player extends Phaser.GameObjects.Sprite {
 
     update() {
         this.PlayerFSM.step()
-    }
-
-    takeDammage(){
-        this.stateMachine.transition('hurt')
     }
 }
 
@@ -63,7 +61,7 @@ class IdleState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
+        if(Phaser.Input.Keyboard.JustDown(HKey) || hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
         }
@@ -101,7 +99,7 @@ class MoveState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
+        if(Phaser.Input.Keyboard.JustDown(HKey) || hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
         }
@@ -141,6 +139,12 @@ class AttackState extends State {
             // TODO: Turn on the hitbox for the weapon
             hero.attackHitbox.x = hero.x
             hero.attackHitbox.y = hero.y- 45
+            if (hero.colliding){
+                hero.attackHitbox.y +=  500
+                
+                this.stateMachine.transition('hurt')
+                return
+            }
 
 
             hero.once('animationcomplete', () => {
@@ -186,6 +190,7 @@ class BlockState extends State {
 
 class HurtState extends State {
     enter(scene, hero) {
+        hero.colliding = false
         hero.isBlocking = true
         hero.body.setVelocity(0)
         hero.anims.play(`hurt-${hero.character}-${hero.direction}`)
