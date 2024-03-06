@@ -21,7 +21,7 @@ class Title extends Phaser.Scene {
         this.reflection.flipY = true
 
         // The title image
-        this.title = this.add.image(w/2, h*3/4, 'titleText').setOrigin(0.5, 1).setScale(1.3)
+        this.title = this.add.image(w/2, h, 'titleText').setOrigin(0.5, 1).setScale(1)
         
         // Title Screen text
         this.add.text (w/2, h/2 + 200, 'Press space to play').setScale(2).setOrigin(0.5, 0.5)
@@ -38,7 +38,7 @@ class Title extends Phaser.Scene {
             this.scene.start('creditsScene')
         }
 
-        this.scrollFactor = .2
+        this.scrollFactor = .17
 
         this.clouds.tilePositionX -= this.scrollFactor
         this.backMountains.tilePositionX -= this.scrollFactor * 1.5
