@@ -16,6 +16,19 @@ class Play extends Phaser.Scene {
         this.floor = this.physics.add.sprite(-centerX, h, 'floor').setOrigin(0,1).setImmovable(true)
         this.wall = this.add.sprite(-centerX, h-this.floor.height, 'plantwall').setOrigin(0,1)
 
+        this.boss = new Boss(this, (w/4)*3, h-this.floor.height, 'boss', 0, {
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
+            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL),
+            block: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN),
+            attack: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
+        }, {
+            player: 2,
+            character: 'boss',
+            direction: 'left'
+        })
+        this.boss.body.setSize(180, 390) // .setOffset(15, 0)
+
         // add players
         this.knight = new Player(this, w/4, h-this.floor.height, 'knight', 0, {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
@@ -29,20 +42,6 @@ class Play extends Phaser.Scene {
             direction: 'right'
         })
         this.knight.body.setSize(65, 105).setOffset(15, 0)
-        
-
-        this.boss = new Boss(this, (w/4)*3, h-this.floor.height, 'boss', 0, {
-            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
-            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
-            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL),
-            block: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN),
-            attack: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
-        }, {
-            player: 2,
-            character: 'boss',
-            direction: 'left'
-        })
-        this.boss.body.setSize(180, 390) // .setOffset(15, 0)
 
         // add colliders for floor
         this.physics.add.collider(this.knight, this.floor)
