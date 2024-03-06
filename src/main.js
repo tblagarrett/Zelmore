@@ -29,7 +29,10 @@ settings = {
     blockEndlag: .15 * 1000,        // in milliseconds
     attackWindUp: .1 * 1000,       // in milliseconds
     attackLength: .4 * 1000,        // in milliseconds
-    attackEndlag: .15 * 1000        // in milliseconds
+    attackEndlag: .15 * 1000,        // in milliseconds
+    bossAttackWindUp: .3 * 1000,    // in milliseconds
+    bossAttackLength: .3 * 1000,    // in milliseconds
+    bossAttackEndlag: .2 * 1000,    // in milliseconds
 }
 
 // define globals
