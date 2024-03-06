@@ -1,4 +1,4 @@
-class Player extends Phaser.GameObjects.Sprite {
+class Boss extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, keybinds, config) {
         super(scene, x, y, texture, frame)
 
@@ -26,11 +26,11 @@ class Player extends Phaser.GameObjects.Sprite {
         this.direction = config.direction   // 'right' or 'left'
         
         this.PlayerFSM = new StateMachine('idle', {
-            idle: new IdleState(),
-            move: new MoveState(),
-            attack: new AttackState(),
-            hurt: new HurtState(),
-            block: new BlockState(),
+            idle: new BossIdleState(),
+            move: new BossMoveState(),
+            attack: new BossAttackState(),
+            hurt: new BossHurtState(),
+            block: new BossBlockState(),
         }, [scene, this])   // pass these as arguments to maintain scene/object context in the FSM
     }
 
@@ -41,7 +41,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
 
 // hero-specific state classes
-class IdleState extends State {
+class BossIdleState extends State {
     enter(scene, hero) {
         hero.body.setVelocity(0)
         hero.anims.play(`idle-${hero.character}-${hero.direction}`)
@@ -78,7 +78,7 @@ class IdleState extends State {
     }
 }
 
-class MoveState extends State {
+class BossMoveState extends State {
     execute(scene, hero) {
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, block, attack } = hero.keybinds
@@ -121,7 +121,7 @@ class MoveState extends State {
     }
 }
 
-class AttackState extends State {
+class BossAttackState extends State {
     enter(scene, hero) {
         /*
         This works in 3 parts, as a sequence
@@ -143,7 +143,7 @@ class AttackState extends State {
                 hero.anims.play(`attackLag-${hero.character}-${hero.direction}`)
                 // TODO: Turn off the hitbox for the weapon
                 // HITBOX WILL ALSO NEED TO TURN OFF THE FIRST TIME A HIT IS REGISTERED
-                hero.attackHitbox.y += 1000
+                hero.attackHitbox.y +=  -100
                 hero.once('animationcomplete', () => {
                     this.stateMachine.transition('idle')
                 })
@@ -152,7 +152,7 @@ class AttackState extends State {
     }
 }
 
-class BlockState extends State {
+class BossBlockState extends State {
     enter(scene, hero) {
         hero.anims.play(`block-${hero.character}-${hero.direction}`)
         hero.isBlocking = true
@@ -180,7 +180,7 @@ class BlockState extends State {
     }
 }
 
-class HurtState extends State {
+class BossHurtState extends State {
     enter(scene, hero) {
         hero.isBlocking = true
         hero.body.setVelocity(0)

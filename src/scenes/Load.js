@@ -45,6 +45,11 @@ class Load extends Phaser.Scene {
             frameWidth: 120,
             frameHeight: 105
         }) 
+
+        this.load.spritesheet('boss', 'img/BossSprite.png', {
+            frameWidth: 445,
+            frameHeight: 390
+        })
     }
 
     create() {
@@ -126,6 +131,20 @@ class Load extends Phaser.Scene {
             }),
             duration: settings.attackEndlag
        })
+
+       /*
+       BOSS ANIMATIONS
+       */
+
+       // IDLE
+       this.anims.create({
+        key: 'idle-boss-left',
+        frameRate: 4,
+        repeat: -1,
+        frames: this.anims.generateFrameNumbers('boss', {
+            frames: [0, 1, 2, 2, 1]
+        }),
+        })
 
         // go to Title scene
         this.scene.start('titleScene');
