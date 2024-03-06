@@ -174,6 +174,16 @@ class Load extends Phaser.Scene {
             duration: settings.blockEndlag
         })
 
+        // HURT
+        this.anims.create({
+            key: 'hurt-boss-left',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('boss', {
+                frames: [12]
+            }),
+            duration: settings.hurtStunTime
+        })
+
         // ATTACK
        this.anims.create({
         key: 'attackWindUp-boss-left',
