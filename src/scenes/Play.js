@@ -27,7 +27,7 @@ class Play extends Phaser.Scene {
             character: 'boss',
             direction: 'left'
         })
-        this.boss.body.setSize(180, 390) // .setOffset(15, 0)
+        this.boss.body.setSize(267, 390) // .setOffset(15, 0)
 
         // add players
         this.knight = new Player(this, w/4, h-this.floor.height, 'knight', 0, {
@@ -46,6 +46,10 @@ class Play extends Phaser.Scene {
         // add colliders for floor
         this.physics.add.collider(this.knight, this.floor)
         this.physics.add.collider(this.boss, this.floor)
+
+        //add hit box overlaps
+        this.physics.add.overlap(this.knight.attackHitbox, this.boss, this.boss.takeDammage, undefined, this)
+        this.physics.add.overlap(this.knight, this.boss.attackHitbox, this.knight.takeDammage, undefined, this)
     }
 
     update(time, delta) {

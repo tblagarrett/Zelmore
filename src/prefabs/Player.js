@@ -37,6 +37,10 @@ class Player extends Phaser.GameObjects.Sprite {
     update() {
         this.PlayerFSM.step()
     }
+
+    takeDammage(){
+        this.stateMachine.transition('hurt')
+    }
 }
 
 

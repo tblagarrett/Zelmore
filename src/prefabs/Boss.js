@@ -11,15 +11,18 @@ class Boss extends Phaser.GameObjects.Sprite {
 
         // https://www.youtube.com/watch?v=SCO2BbbO17c i left off at timestamp 
         // adding player attack hitbox
-        this.attackHitbox = scene.add.rectangle(0,0,60, 12, 0xFFFFFF, 0).setOrigin(0,0)
-        scene.physics.add.existing(this.attackHitbox)
+        this.attackHitbox = scene.add.rectangle(0,0,90, 39, 0xFFFFFF, 0).setOrigin(0,0)
         
+        scene.physics.add.existing(this.attackHitbox)
         // Set up properties
         this.isBlocking = false
         this.blockOnCooldown = false
         //scene.physics.add.overlap(this.sword)
 
 
+
+        
+        this.colliding = true
         this.keybinds = keybinds
         this.player = config.player         // 1 or 2
         this.character = config.character   // 'knight' or 'boss'
@@ -37,7 +40,14 @@ class Boss extends Phaser.GameObjects.Sprite {
     update() {
         this.PlayerFSM.step()
     }
+
+    takeDammage(){
+        console.log("hehehahahah")
+        this.colliding = true
+        //console.log(this.colliding)
+    }
 }
+
 
 
 // hero-specific state classes
@@ -59,7 +69,10 @@ class BossIdleState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
+
+        
+        console.log(hero.colliding)
+        if(Phaser.Input.Keyboard.JustDown(HKey) || hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
         }
@@ -76,6 +89,8 @@ class BossIdleState extends State {
             return
         }
     }
+
+    
 }
 
 class BossMoveState extends State {
@@ -97,7 +112,7 @@ class BossMoveState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey)) {
+        if(Phaser.Input.Keyboard.JustDown(HKey) ||hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
         }
@@ -135,15 +150,20 @@ class BossAttackState extends State {
         hero.once('animationcomplete', () => {
             hero.anims.play(`attack-${hero.character}-${hero.direction}`)
             // TODO: Turn on the hitbox for the weapon
-            hero.attackHitbox.x = hero.x
-            hero.attackHitbox.y = hero.y- 45
-
+            
+            hero.attackHitbox.x = hero.x - 150
+            hero.attackHitbox.y = hero.y - 30 
+            if (hero.colliding){
+                hero.attackHitbox.y +=  500
+                
+                this.stateMachine.transition('hurt')
+            }
 
             hero.once('animationcomplete', () => {
                 hero.anims.play(`attackLag-${hero.character}-${hero.direction}`)
                 // TODO: Turn off the hitbox for the weapon
                 // HITBOX WILL ALSO NEED TO TURN OFF THE FIRST TIME A HIT IS REGISTERED
-                hero.attackHitbox.y +=  -100
+                hero.attackHitbox.y +=  500
                 hero.once('animationcomplete', () => {
                     this.stateMachine.transition('idle')
                 })
