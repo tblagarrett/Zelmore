@@ -11,12 +11,13 @@ class Player extends Phaser.GameObjects.Sprite {
 
         // https://www.youtube.com/watch?v=SCO2BbbO17c i left off at timestamp 
         // adding player attack hitbox
-        this.attackHitbox = scene.add.rectangle(0,0,20, 5, 0xFFFFFF, 0)
+        this.attackHitbox = scene.add.rectangle(0,0,60, 12, 0xFFFFFF, 0).setOrigin(0,0)
         scene.physics.add.existing(this.attackHitbox)
+        
         // Set up properties
         this.isBlocking = false
         this.blockOnCooldown = false
-
+        //scene.physics.add.overlap(this.sword)
 
 
         this.keybinds = keybinds
@@ -134,10 +135,15 @@ class AttackState extends State {
         hero.once('animationcomplete', () => {
             hero.anims.play(`attack-${hero.character}-${hero.direction}`)
             // TODO: Turn on the hitbox for the weapon
+            hero.attackHitbox.x = hero.x
+            hero.attackHitbox.y = hero.y- 45
+
+
             hero.once('animationcomplete', () => {
                 hero.anims.play(`attackLag-${hero.character}-${hero.direction}`)
                 // TODO: Turn off the hitbox for the weapon
                 // HITBOX WILL ALSO NEED TO TURN OFF THE FIRST TIME A HIT IS REGISTERED
+                hero.attackHitbox.x =  -100
                 hero.once('animationcomplete', () => {
                     this.stateMachine.transition('idle')
                 })
