@@ -146,6 +146,16 @@ class Load extends Phaser.Scene {
         }),
         })
 
+        // WALK
+        this.anims.create({
+            key: 'walk-boss-left',
+            frameRate: 4,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('boss', {
+                frames: [10, 11]
+            })
+        })
+
         // BLOCK
         this.anims.create({
             key: 'block-boss-left',
