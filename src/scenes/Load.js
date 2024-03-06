@@ -146,6 +146,24 @@ class Load extends Phaser.Scene {
         }),
         })
 
+        // BLOCK
+        this.anims.create({
+            key: 'block-boss-left',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('boss', {
+                frames: [8]
+            }),
+            duration: settings.blockLength
+        })
+        this.anims.create({
+            key: 'blockLag-boss-left',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('boss', {
+                frames: [9]
+            }),
+            duration: settings.blockEndlag
+        })
+
         // ATTACK
        this.anims.create({
         key: 'attackWindUp-boss-left',

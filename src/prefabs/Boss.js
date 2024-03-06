@@ -158,7 +158,7 @@ class BossBlockState extends State {
         hero.isBlocking = true
 
         hero.body.setVelocity(0)
-        hero.setTint(0x00AA00)     // turn green
+        //hero.setTint(0x00AA00)     // turn green
 
         // set a short cooldown delay before going back to idle
         scene.time.delayedCall(settings.blockLength, () => {
