@@ -24,8 +24,8 @@ class Title extends Phaser.Scene {
         this.title = this.add.image(w/2, h, 'titleText').setOrigin(0.5, 1).setScale(1)
         
         // Title Screen text
-        this.add.text (w/2, h/2 + 200, 'Press space to play').setScale(2).setOrigin(0.5, 0.5)
-        this.add.text (w/2, h/2 + 250, 'Press shift for credits').setScale(2).setOrigin(0.5, 0.5)
+        this.add.text (w/2, h/2 + 150, 'Press space to play').setScale(2).setOrigin(0.5, 0.5)
+        this.add.text (w/2, h/2 + 200, 'Press shift for credits').setScale(2).setOrigin(0.5, 0.5)
     
         this.cursors = this.input.keyboard.createCursorKeys()
     }

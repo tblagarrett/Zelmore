@@ -16,7 +16,7 @@ let config = {
         }
     },
     pixelArt: true,
-    scene: [ Load, Title, Play, Credits ]
+    scene: [ Load, Title, Play, Credits, GameOver ]
 }
 
 let game = new Phaser.Game(config)
