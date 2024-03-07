@@ -68,6 +68,9 @@ class Play extends Phaser.Scene {
             this.hearts[0].setTexture('emptyHeart')
             
             // Maybe add some fade and turn off player input
+            this.scene.start('gameOverScene', {
+                winner: 'boss'
+            })
 
         }else if ( this.health%2 == 0){
             this.hearts[Math.ceil(this.health/2) -1 ].setTexture('heart')
@@ -84,6 +87,9 @@ class Play extends Phaser.Scene {
             this.hearts[3].setTexture('heart')
 
             // Maybe add some fade and turn off player input
+            this.scene.start('gameOverScene', {
+                winner: 'knight'
+            })
             
         }else if ( this.health%2 == 0){
             this.hearts[Math.ceil(this.health/2) -1 ].setTexture('heart')
