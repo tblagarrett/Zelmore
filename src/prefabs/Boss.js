@@ -19,7 +19,7 @@ class Boss extends Phaser.GameObjects.Sprite {
         this.isBlocking = false
         this.blockOnCooldown = false
         //scene.physics.add.overlap(this.sword)
-
+        
 
 
         this.colliding = false
@@ -194,6 +194,8 @@ class BossBlockState extends State {
 
 class BossHurtState extends State {
     enter(scene, hero) {
+        
+        scene.increaseHearts()
         hero.colliding = false
         hero.isBlocking = true
         hero.body.setVelocity(0)

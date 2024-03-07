@@ -24,6 +24,10 @@ class Load extends Phaser.Scene {
         this.load.image('plantwall', 'img/plantwall.png')
         this.load.image('gameSky', 'img/GameSky.png')
         this.load.image('tree', 'img/tree.png')
+        
+        this.load.image("heart", 'img/ZelmoreHearts-1.png')
+        this.load.image("halfHeart", 'img/ZelmoreHearts-2.png')
+        this.load.image("emptyHeart", 'img/ZelmoreHearts-3.png')
 
         // menu bg
         this.load.image('menuBG1', 'img/mainmenu/MainMenuBackground-1.png')

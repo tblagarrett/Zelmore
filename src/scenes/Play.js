@@ -50,11 +50,47 @@ class Play extends Phaser.Scene {
         //add hit box overlaps
         this.physics.add.overlap(this.boss, this.knight.attackHitbox, takeDamage, checkIfValid, this.boss)
         this.physics.add.overlap(this.knight, this.boss.attackHitbox, takeDamage, checkIfValid, this.knight)
+
+        this.maxHealth = 8
+        this.health = 4
+        this.hearts = [ this.add.sprite(30, 50, 'heart').setOrigin(.5, 1), this.add.sprite(80, 50, 'heart').setOrigin(.5, 1), this.add.sprite(130, 50, 'emptyHeart').setOrigin(.5, 1), this.add.sprite(180, 50, 'emptyHeart').setOrigin(.5, 1)]
     }
 
     update(time, delta) {
         this.knight.update()
         this.boss.update()
+    }
+
+    decreaseHearts(){ // This manages the hearts and makes sure they are correctly updated. And if checks for wins
+        this.health--
+        
+        if (this.health == 0){
+            this.hearts[0].setTexture('emptyHeart')
+            
+            // Maybe add some fade and turn off player input
+
+        }else if ( this.health%2 == 0){
+            this.hearts[Math.ceil(this.health/2) -1 ].setTexture('heart')
+            this.hearts[Math.ceil(this.health/2)  ].setTexture('emptyHeart')
+        } else {
+            this.hearts[Math.ceil(this.health/2) -1 ].setTexture('halfHeart')
+        }
+    }
+
+    increaseHearts(){ // This manages the hearts and makes sure they are correctly updated. And if checks for wins
+        this.health++
+        console.log(this.health)
+        if (this.health == 8){
+            this.hearts[3].setTexture('heart')
+
+            // Maybe add some fade and turn off player input
+            
+        }else if ( this.health%2 == 0){
+            this.hearts[Math.ceil(this.health/2) -1 ].setTexture('heart')
+            this.hearts[Math.ceil(this.health/2)  ].setTexture('emptyHeart')
+        } else {
+            this.hearts[Math.ceil(this.health/2) -1 ].setTexture('halfHeart')
+        }
     }
 }
 

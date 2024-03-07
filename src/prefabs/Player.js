@@ -190,6 +190,7 @@ class BlockState extends State {
 
 class HurtState extends State {
     enter(scene, hero) {
+        scene.decreaseHearts()
         hero.colliding = false
         hero.isBlocking = true
         hero.body.setVelocity(0)
