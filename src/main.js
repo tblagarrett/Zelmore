@@ -16,6 +16,10 @@ let config = {
         }
     },
     pixelArt: true,
+    scale: {
+        mode: Phaser.Scale.NONE,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     scene: [ Load, Title, Play, Credits, GameOver ]
 }
 
