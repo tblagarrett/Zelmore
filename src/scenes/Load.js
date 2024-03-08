@@ -141,6 +141,16 @@ class Load extends Phaser.Scene {
             duration: settings.attackEndlag
        })
 
+       // PARRIED
+       this.anims.create({
+        key: 'parried-knight-right',
+        repeat: 0,
+        frames: this.anims.generateFrameNumbers('knight', {
+            frames: [14]
+            }),
+            duration: settings.parryStunTime
+        })
+
        /*
        BOSS ANIMATIONS
        */
@@ -217,6 +227,16 @@ class Load extends Phaser.Scene {
                 frames: [6, 7]
             }),
             duration: settings.bossAttackEndlag
+        })
+
+        // PARRIED
+        this.anims.create({
+            key: 'parried-boss-left',
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('boss', {
+                frames: [12]
+            }),
+            duration: settings.parryStunTime
         })
 
         // go to Title scene

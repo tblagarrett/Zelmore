@@ -48,8 +48,8 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.boss, this.floor)
 
         //add hit box overlaps
-        this.physics.add.overlap(this.boss, this.knight.attackHitbox, takeDamage, checkIfValid, this.boss)
-        this.physics.add.overlap(this.knight, this.boss.attackHitbox, takeDamage, checkIfValid, this.knight)
+        this.physics.add.overlap(this.boss, this.knight.attackHitbox, takeDamage, this.checkIfValid, this.boss)
+        this.physics.add.overlap(this.knight, this.boss.attackHitbox, takeDamage, this.checkIfValid, this.knight)
 
         this.maxHealth = 8
         this.health = 4
@@ -118,13 +118,24 @@ class Play extends Phaser.Scene {
             this.hearts[Math.ceil(this.health/2) -1 ].setTexture('halfHeart')
         }
     }
+
+    checkIfValid(recipient, hitbox) {
+        hitbox.x += 500
+
+        // Transition to parries!
+        let name = recipient.character
+        if (name == 'boss' && recipient.PlayerFSM.state == 'block') {
+            recipient.scene.knight.PlayerFSM.transition('parried')
+        }
+        if (name == 'knight' && recipient.PlayerFSM.state == 'block') {
+            recipient.scene.boss.PlayerFSM.transition('parried')
+        }
+
+
+        return recipient.PlayerFSM.state != 'hurt' && recipient.PlayerFSM.state != 'block'
+    }
 }
 
 function takeDamage() {
     this.colliding = true
-}
-
-function checkIfValid(recipient, hitbox) {
-    hitbox.x += 500
-    return recipient.PlayerFSM.state != 'hurt' && recipient.PlayerFSM.state != 'block'
 }

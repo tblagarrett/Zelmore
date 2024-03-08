@@ -24,6 +24,7 @@ let game = new Phaser.Game(config)
 settings = {
     moveSpeed: 300,
     hurtStunTime: .25 * 1000,       // in milliseconds
+    parryStunTime: .4 * 1000,      // in milliseconds
     blockLength: .25 * 1000,        // in milliseconds
     blockCooldown: 1 * 1000,        // in milliseconds
     blockEndlag: .15 * 1000,        // in milliseconds
