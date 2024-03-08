@@ -32,6 +32,8 @@ class Load extends Phaser.Scene {
         this.load.image("bossWin", 'img/BossWin.png')
         this.load.image("knightWin", 'img/KnightWinScreen.png')
 
+        this.load.image('tutorial', 'img/Tutorial.png')
+
         // menu bg
         this.load.image('menuBG1', 'img/mainmenu/MainMenuBackground-1.png')
         this.load.image('menuBG2', 'img/mainmenu/MainMenuBackground-2.png')

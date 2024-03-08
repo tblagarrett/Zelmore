@@ -54,6 +54,9 @@ class IdleState extends State {
         const { left, right, up, block, attack } = hero.keybinds
         const HKey = scene.keys.HKey
 
+        // to prevent player from doing anything during the scene transition
+        if (!scene.playing) { return }
+
         // transition to attack when pressing the associated button
         if(Phaser.Input.Keyboard.JustDown(attack)) {
             this.stateMachine.transition('attack')

@@ -28,11 +28,24 @@ class Title extends Phaser.Scene {
         this.add.text (w/2, h/2 + 200, 'Press shift for credits').setScale(2).setOrigin(0.5, 0.5)
     
         this.cursors = this.input.keyboard.createCursorKeys()
+
+        // tutorial image and camera stuff
+        this.tutorial = this.add.sprite(0, -h, 'tutorial').setOrigin(0, 0)
+        this.cameraTween = this.tweens.add({
+            targets: this.cameras.main,
+            duration: 1300,
+            paused: true,
+            onStart: () => {this.cameras.main.pan(w/2, -h/2, 1300, 'Quad.easeInOut')},
+            onStartScope: this,
+            onComplete: () => {this.scene.start('playScene')},
+            onCompleteScope: this
+        })
+
     }
 
     update(time, delta) {
-        if (this.cursors.space.isDown) {
-            this.scene.start('playScene')
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+            this.cameraTween.play()
         }
         if (this.cursors.shift.isDown) {
             this.scene.start('creditsScene')
