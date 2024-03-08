@@ -34,6 +34,7 @@ class Boss extends Phaser.GameObjects.Sprite {
             attack: new BossAttackState(),
             hurt: new BossHurtState(),
             block: new BossBlockState(),
+            parried: new BossParriedState(),
         }, [scene, this])   // pass these as arguments to maintain scene/object context in the FSM
     }
 
@@ -191,6 +192,18 @@ class BossBlockState extends State {
             scene.time.delayedCall(settings.blockEndlag, () => {
                 this.stateMachine.transition('idle')
             })
+        })
+    }
+}
+
+class BossParriedState extends State {
+    enter(scene, hero) {
+        hero.anims.play(`parried-${hero.character}-${hero.direction}`)
+        hero.body.setVelocity(0)
+
+        // set recovery timer
+        scene.time.delayedCall(settings.parryStunTime, () => {
+            this.stateMachine.transition('idle')
         })
     }
 }

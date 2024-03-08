@@ -16,7 +16,7 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this.attackHitbox)
         
         // Set up properties
-        this.colliding = false
+        this.colliding = false          // Is the player being hit RIGHT NOW
         this.isBlocking = false
         this.blockOnCooldown = false
         //scene.physics.add.overlap(this.sword)
@@ -33,6 +33,7 @@ class Player extends Phaser.GameObjects.Sprite {
             attack: new AttackState(),
             hurt: new HurtState(),
             block: new BlockState(),
+            parried: new ParriedState(),
         }, [scene, this])   // pass these as arguments to maintain scene/object context in the FSM
     }
 
@@ -173,7 +174,6 @@ class BlockState extends State {
 
         // set a short cooldown delay before going back to idle
         scene.time.delayedCall(settings.blockLength, () => {
-            hero.clearTint()
             hero.isBlocking = false
             hero.anims.play(`blockLag-${hero.character}-${hero.direction}`)
 
@@ -187,6 +187,18 @@ class BlockState extends State {
             scene.time.delayedCall(settings.blockEndlag, () => {
                 this.stateMachine.transition('idle')
             })
+        })
+    }
+}
+
+class ParriedState extends State {
+    enter(scene, hero) {
+        hero.anims.play(`parried-${hero.character}-${hero.direction}`)
+        hero.body.setVelocity(0)
+
+        // set recovery timer
+        scene.time.delayedCall(settings.parryStunTime, () => {
+            this.stateMachine.transition('idle')
         })
     }
 }
