@@ -139,11 +139,12 @@ class BossAttackState extends State {
         attack comes out, plays its animation and activates the hitbox
         endlag plays and then sends player to idle state
         */
-        scene.sound.play('stomp')
         hero.body.setVelocity(0)
         hero.anims.play(`attackWindUp-${hero.character}-${hero.direction}`)
         hero.once('animationcomplete', () => {
             hero.anims.play(`attack-${hero.character}-${hero.direction}`)
+
+            scene.sound.play('stomp')
             // TODO: Turn on the hitbox for the weapon
             
             hero.attackHitbox.x = hero.x - 150
