@@ -74,12 +74,20 @@ class Play extends Phaser.Scene {
             },
             onCompleteScope: this            
         })
-
+        // This is a little weird but it defaults to debug being off, but it has to start as being set on in main
+        this.physics.world.drawDebug = false
+        this.physics.world.debugGraphic.clear()
+        this.input.keyboard.on('keydown-P', function() {
+            this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
+            this.physics.world.debugGraphic.clear()
+        }, this)
     }
 
     update(time, delta) {
-            this.knight.update()
-            this.boss.update()
+        this.knight.update()
+        this.boss.update()
+        
+       
     }
 
     decreaseHearts(){ // This manages the hearts and makes sure they are correctly updated. And if checks for wins
