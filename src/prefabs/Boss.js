@@ -11,7 +11,7 @@ class Boss extends Phaser.GameObjects.Sprite {
 
         // https://www.youtube.com/watch?v=SCO2BbbO17c i left off at timestamp 
         // adding player attack hitbox
-        this.attackHitbox = scene.add.rectangle(0,0,90, 39, 0xFFFFFF, 0).setOrigin(0,0)
+        this.attackHitbox = scene.add.rectangle(0,0, 270, 50, 0xFFFFFF, 0).setOrigin(0,0)
         this.attackHitbox.setPosition(w*2, h*2)
         
         scene.physics.add.existing(this.attackHitbox)
@@ -147,8 +147,8 @@ class BossAttackState extends State {
             scene.sound.play('stomp')
             // TODO: Turn on the hitbox for the weapon
             
-            hero.attackHitbox.x = hero.x - 150
-            hero.attackHitbox.y = hero.y - 30 
+            hero.attackHitbox.x = hero.x - 160
+            hero.attackHitbox.y = hero.y - 50 
             if (hero.colliding){
                 hero.attackHitbox.y +=  500
                 
