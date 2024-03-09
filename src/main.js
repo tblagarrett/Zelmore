@@ -28,14 +28,14 @@ let game = new Phaser.Game(config)
 settings = {
     moveSpeed: 300,
     hurtStunTime: .25 * 1000,       // in milliseconds
-    parryStunTime: .4 * 1000,      // in milliseconds
+    parryStunTime: .6 * 1000,      // in milliseconds
     blockLength: .25 * 1000,        // in milliseconds
     blockCooldown: 1 * 1000,        // in milliseconds
     blockEndlag: .15 * 1000,        // in milliseconds
     attackWindUp: .1 * 1000,       // in milliseconds
     attackLength: .4 * 1000,        // in milliseconds
-    attackEndlag: .15 * 1000,        // in milliseconds
-    bossAttackWindUp: .3 * 1000,    // in milliseconds
+    attackEndlag: .24 * 1000,        // in milliseconds
+    bossAttackWindUp: .2 * 1000,    // in milliseconds
     bossAttackLength: .3 * 1000,    // in milliseconds
     bossAttackEndlag: .2 * 1000,    // in milliseconds
 }
