@@ -135,11 +135,12 @@ class AttackState extends State {
         attack comes out, plays its animation and activates the hitbox
         endlag plays and then sends player to idle state
         */
-        scene.sound.play('slash')
         hero.body.setVelocity(0)
         hero.anims.play(`attackWindUp-${hero.character}-${hero.direction}`)
         hero.once('animationcomplete', () => {
             hero.anims.play(`attack-${hero.character}-${hero.direction}`)
+
+            scene.sound.play('slash')
             // TODO: Turn on the hitbox for the weapon
             hero.attackHitbox.x = hero.x
             hero.attackHitbox.y = hero.y- 45
