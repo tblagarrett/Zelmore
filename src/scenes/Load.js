@@ -48,6 +48,10 @@ class Load extends Phaser.Scene {
         this.load.image('titleText', 'img/mainmenu/TitleScreenTitle-1.png')
 
         // load sound assets
+        this.load.audio('stomp', [ 'wav/stomp.wav' ]);
+        this.load.audio('slash', [ 'wav/swordSlash.wav' ]);
+        this.load.audio('damage', [ 'wav/takeDammage.wav' ]);
+        this.load.audio('select', [ 'wav/uiSelect.wav' ]);
 
         // load spritesheets
         this.load.spritesheet('knight', 'img/KnightSprite.png', {

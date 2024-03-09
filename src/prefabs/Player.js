@@ -135,7 +135,7 @@ class AttackState extends State {
         attack comes out, plays its animation and activates the hitbox
         endlag plays and then sends player to idle state
         */
-
+        scene.sound.play('slash')
         hero.body.setVelocity(0)
         hero.anims.play(`attackWindUp-${hero.character}-${hero.direction}`)
         hero.once('animationcomplete', () => {
@@ -205,6 +205,7 @@ class ParriedState extends State {
 
 class HurtState extends State {
     enter(scene, hero) {
+        scene.sound.play('damage')
         scene.decreaseHearts()
         hero.colliding = false
         hero.isBlocking = true

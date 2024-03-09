@@ -45,9 +45,11 @@ class Title extends Phaser.Scene {
 
     update(time, delta) {
         if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+            this.sound.play('select')
             this.cameraTween.play()
         }
         if (this.cursors.shift.isDown) {
+            this.sound.play('select')
             this.scene.start('creditsScene')
         }
 
