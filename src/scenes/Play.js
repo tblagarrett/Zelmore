@@ -4,10 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        // TO BE DELETED
-        this.keys = {
-            HKey: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H)
-        }
+        
 
         // add background objects
         this.sky = this.add.sprite(w/2, h-130, 'gameSky').setOrigin(.5, 1)

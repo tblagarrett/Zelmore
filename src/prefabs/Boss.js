@@ -55,7 +55,6 @@ class BossIdleState extends State {
     execute(scene, hero) {
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, block, attack } = hero.keybinds
-        const HKey = scene.keys.HKey
 
         // to prevent player from doing anything during the scene transition
         if (!scene.playing) { return }
@@ -67,7 +66,7 @@ class BossIdleState extends State {
         }
 
         // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey) || hero.colliding == true) {
+        if(hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
         }
@@ -92,7 +91,6 @@ class BossMoveState extends State {
     execute(scene, hero) {
         // use destructuring to make a local copy of the keyboard object
         const { left, right, up, block, attack } = hero.keybinds
-        const HKey = scene.keys.HKey
 
         // transition to swing if pressing space
         if(Phaser.Input.Keyboard.JustDown(attack)) {
@@ -106,8 +104,7 @@ class BossMoveState extends State {
             return
         }
 
-        // hurt if H key input (just for demo purposes)
-        if(Phaser.Input.Keyboard.JustDown(HKey) || hero.colliding == true) {
+        if(hero.colliding == true) {
             this.stateMachine.transition('hurt')
             return
         }
