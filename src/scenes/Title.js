@@ -41,6 +41,7 @@ class Title extends Phaser.Scene {
             onCompleteScope: this
         })
 
+        this.sound.setVolume(0.2)
     }
 
     update(time, delta) {
