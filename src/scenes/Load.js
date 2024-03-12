@@ -54,6 +54,8 @@ class Load extends Phaser.Scene {
         this.load.audio('select', [ 'wav/uiSelect.wav' ]);
         this.load.audio('bgm-title', [ 'sfx/zelmore_title.mp3']);
         this.load.audio('bgm-battle', [ 'sfx/zelmore_battle.mp3']);
+        this.load.audio('knight-win', [ 'sfx/zelmore_finale_good.mp3']);
+        this.load.audio('boss-win', [ 'sfx/zelmore_finale_evil.mp3']);
 
         // load spritesheets
         this.load.spritesheet('knight', 'img/KnightSprite.png', {
