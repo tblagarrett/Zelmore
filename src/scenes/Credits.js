@@ -9,6 +9,8 @@ class Credits extends Phaser.Scene {
         this.add.text(40, h/2 - 100, `Created by: Garrett Blake and James Milestone
         \nVisuals made in aseprite`).setOrigin(0,0)
         this.add.text(40, h/2 , `Teaching: Proffessor Altice`).setOrigin(0,0)
+        this.add.text(40, h/2 + 20, `Music: Dee Merrill
+        ^Instagram: @itsmedeemusic`)
     
         this.input.keyboard.on('keydown', () => {
             this.scene.start('titleScene')

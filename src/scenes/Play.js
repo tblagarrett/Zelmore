@@ -3,8 +3,16 @@ class Play extends Phaser.Scene {
         super('playScene')
     }
 
-    create() {
-        
+    create(data) {
+        // Set up music
+        this.bgmTitle = data.bgmTitle
+        // Add music
+        this.bgm = this.sound.add('bgm-battle', { 
+            mute: false,
+            volume: .45,
+            rate: 1,
+            loop: true 
+        });
 
         // add background objects
         this.sky = this.add.sprite(w/2, h-130, 'gameSky').setOrigin(.5, 1)
@@ -65,7 +73,8 @@ class Play extends Phaser.Scene {
             paused: true,
             onStart: () => {
                 this.cameras.main.pan(w/2, h/2, 1300, 'Quad.easeInOut')
-                
+                this.bgmTitle.stop()
+                this.bgm.play()
             },
             onStartScope: this,
             onComplete: () => {
@@ -104,6 +113,7 @@ class Play extends Phaser.Scene {
             this.scene.start('gameOverScene', {
                 winner: 'boss'
             })
+            this.bgm.stop()
 
         }else if ( this.health%2 == 0){
             this.hearts[Math.ceil(this.health/2) -1 ].setTexture('heart')
@@ -122,6 +132,7 @@ class Play extends Phaser.Scene {
             this.scene.start('gameOverScene', {
                 winner: 'knight'
             })
+            this.bgm.stop()
             
         }else if ( this.health%2 == 0){
             this.hearts[Math.ceil(this.health/2) -1 ].setTexture('heart')

@@ -37,10 +37,21 @@ class Title extends Phaser.Scene {
             paused: true,
             onStart: () => {this.cameras.main.pan(w/2, -h/2, 1300, 'Quad.easeInOut')},
             onStartScope: this,
-            onComplete: () => {this.scene.start('playScene')},
+            onComplete: () => {this.scene.start('playScene', {bgmTitle: this.bgm})},
             onCompleteScope: this
         })
 
+        // Add music
+        this.bgm = this.sound.add('bgm-title', { 
+            mute: false,
+            volume: .35,
+            rate: 1,
+            loop: true 
+        });
+        this.bgm.play();
+
+
+        // Adjust overall sound settings
         this.sound.setVolume(0.2)
     }
 
@@ -52,6 +63,7 @@ class Title extends Phaser.Scene {
         if (this.cursors.shift.isDown) {
             this.sound.play('select')
             this.scene.start('creditsScene')
+            this.bgm.stop()
         }
 
         this.scrollFactor = .17
