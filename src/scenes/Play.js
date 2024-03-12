@@ -56,14 +56,16 @@ class Play extends Phaser.Scene {
         this.hearts = [ this.add.sprite(30, 50, 'heart').setOrigin(.5, 1), this.add.sprite(80, 50, 'heart').setOrigin(.5, 1), this.add.sprite(130, 50, 'emptyHeart').setOrigin(.5, 1), this.add.sprite(180, 50, 'emptyHeart').setOrigin(.5, 1)]
     
         // tutorial image and tween stuff START THE CAMERA AT THE TUTORIAL
+        this.tutorialScreen = true
+        this.endTutorialButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
         this.playing = false
         this.tutorial = this.add.sprite(0, -h, 'tutorial').setOrigin(0, 0)
         this.cameras.main.setScroll(0, -h)
         this.cameraTween = this.tweens.add({
             targets: this.cameras.main,
-            delay: 1500,                        // HOW LONG THE INSTRUCTIONS STAY ON SCREEN
             duration: 1300,
-            paused: false,
+            paused: true,
             onStart: () => {
                 this.cameras.main.pan(w/2, h/2, 1300, 'Quad.easeInOut')
                 
@@ -87,7 +89,12 @@ class Play extends Phaser.Scene {
         this.knight.update()
         this.boss.update()
         
-       
+        if (this.tutorialScreen) {
+            if (this.endTutorialButton.isDown) {
+                this.tutorialScreen = false;
+                this.cameraTween.play()
+            }
+        }
     }
 
     decreaseHearts(){ // This manages the hearts and makes sure they are correctly updated. And if checks for wins
