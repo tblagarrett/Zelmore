@@ -1,7 +1,7 @@
 /*
 Names: Garrett Blake, James Milestone
 Game Title: The Tale of Zelmore: The Golden Lake
-Time Spent:
+Time Spent: Infinity
 */
 
 // The base size from the Zelmore screenshot is 153 by 93, so the pixelart is made according to that
