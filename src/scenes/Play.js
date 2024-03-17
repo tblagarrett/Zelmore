@@ -19,7 +19,13 @@ class Play extends Phaser.Scene {
         this.tree1 = this.add.sprite(w/10, h-130, 'tree').setOrigin(0.5, 1)
         this.tree2 = this.add.sprite(w + w/4, h-130, 'tree').setOrigin(0.5, 1)
         this.floor = this.physics.add.sprite(-centerX, h, 'floor').setOrigin(0,1).setImmovable(true)
+        this.floor2 = this.physics.add.sprite(-centerX + this.floor.width, h, 'floor').setOrigin(0,1).setImmovable(true)
         this.wall = this.add.sprite(-centerX, h-this.floor.height, 'plantwall').setOrigin(0,1)
+
+        this.physics.world.setBounds(w/2 - 1250/2, 0, 1250, h)
+        this.scale.gameSize.setMax(1500, h)
+        this.scale.gameSize.setMin(w, h)
+        this.cameras.main.centerOnX(w/2)
 
         this.boss = new Boss(this, (w/4)*3, h-this.floor.height, 'boss', 0, {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
@@ -33,6 +39,7 @@ class Play extends Phaser.Scene {
             direction: 'left'
         })
         this.boss.body.setSize(267, 390) // .setOffset(15, 0)
+        this.boss.body.setCollideWorldBounds(true)
 
         // add players
         this.knight = new Player(this, w/4, h-this.floor.height, 'knight', 0, {
@@ -47,6 +54,7 @@ class Play extends Phaser.Scene {
             direction: 'right'
         })
         this.knight.body.setSize(65, 105).setOffset(15, 0)
+        this.knight.body.setCollideWorldBounds(true)
 
         // add colliders for floor
         this.physics.add.collider(this.knight, this.floor)
@@ -94,6 +102,8 @@ class Play extends Phaser.Scene {
     update(time, delta) {
         this.knight.update()
         this.boss.update()
+
+        this.adjustCanvas()
         
         if (this.tutorialScreen) {
             if (this.endTutorialButton.isDown) {
@@ -156,6 +166,25 @@ class Play extends Phaser.Scene {
 
 
         return recipient.PlayerFSM.state != 'hurt' && recipient.PlayerFSM.state != 'block'
+    }
+
+    adjustCanvas() {
+        if (!this.playing) { return }
+
+        // distance in units off the screen
+        let knightDistanceOffScreen = Math.abs(w/2 - this.knight.x) - w/2 + this.knight.width/2
+        let bossDistanceOffScreen = Math.abs(w/2 - this.boss.x) - w/2 + this.boss.width/2
+
+        // We adjust the bounds only if they are off screen
+        if (knightDistanceOffScreen < 0 && bossDistanceOffScreen < 0) {
+            return
+        }
+
+        let larger = knightDistanceOffScreen > bossDistanceOffScreen ? knightDistanceOffScreen : bossDistanceOffScreen
+
+        this.scale.setGameSize(w + larger*2, h)
+        this.cameras.main.scrollX = 0 - larger
+        this.cameras.main.setBounds(0 - larger, 0, w + larger*2, h)
     }
 }
 
