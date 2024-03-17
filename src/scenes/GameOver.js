@@ -4,6 +4,8 @@ class GameOver extends Phaser.Scene {
     }
 
     create(data) {
+        this.scale.setGameSize(w, h)
+
         if (data.winner == 'boss') {
             this.add.image(0, 0, 'bossWin').setOrigin(0,0).setScale(5/2)
             this.sound.play('boss-win')
